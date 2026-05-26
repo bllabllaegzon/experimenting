@@ -9,7 +9,7 @@ export default function AboutPage() {
       <figure className="mb-8">
         <img
           src="https://picsum.photos/seed/xilancia-about/900/400"
-          alt="The Xilancia editorial team"
+          alt="xilancia News editorial team"
           className="w-full object-cover"
           style={{ height: '280px' }}
         />
@@ -20,7 +20,7 @@ export default function AboutPage() {
 
       <div className="space-y-6 font-body text-base leading-relaxed">
         <p className="drop-cap">
-          The Xilancia was founded in 2026 with a single conviction: that the most consequential
+          xilancia News was founded in 2026 with a single conviction: that the most consequential
           technology of our time deserves more than press releases and product announcements.
           We write about artificial intelligence the way good newspapers write about politics —
           with scepticism, rigour, and a genuine interest in consequence.

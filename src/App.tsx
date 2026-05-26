@@ -40,7 +40,7 @@ export default function App() {
       </main>
       <footer className="border-t-2 border-ink mt-8">
         <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-display italic text-lg text-ink">The Xilancia</p>
+          <p className="font-display italic text-lg text-ink">xilancia News</p>
           <p className="label">© 2026 · AI &amp; Technology · All rights reserved</p>
         </div>
       </footer>

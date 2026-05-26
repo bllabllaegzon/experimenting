@@ -23,7 +23,7 @@ export default function Masthead({ onHome }: MastheadProps) {
       <div className="max-w-5xl mx-auto px-6 py-6 text-center border-b border-rule">
         <button onClick={onHome} className="group">
           <h1 className="font-display font-black text-5xl sm:text-7xl tracking-tight text-ink group-hover:opacity-80 transition-opacity">
-            The Xilancia
+            xilancia News
           </h1>
           <p className="font-body italic text-muted text-sm mt-1 tracking-widest">
             Thoughtful writing on artificial intelligence &amp; the future
