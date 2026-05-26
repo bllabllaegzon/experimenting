@@ -1,30 +1,30 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Features from './components/Features'
-import Stats from './components/Stats'
-import Dashboard from './components/Dashboard'
-import Testimonials from './components/Testimonials'
-import Pricing from './components/Pricing'
-import CTA from './components/CTA'
-import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import ArchivePage from './pages/ArchivePage'
+import AboutPage from './pages/AboutPage'
+
+export type Page = 'home' | 'archive' | 'about'
 
 export default function App() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [page, setPage] = useState<Page>('home')
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+    <div className="min-h-screen bg-white font-sans">
+      <header className="px-16 pt-6 pb-0">
+        <p
+          className="text-[21px] font-normal cursor-pointer"
+          onClick={() => setPage('home')}
+        >
+          xilancia Test
+        </p>
+      </header>
+      <Navbar current={page} onNavigate={setPage} />
       <main>
-        <Hero />
-        <Stats />
-        <Features />
-        <Dashboard />
-        <Testimonials />
-        <Pricing />
-        <CTA />
+        {page === 'home' && <HomePage onNavigate={setPage} />}
+        {page === 'archive' && <ArchivePage onNavigate={setPage} />}
+        {page === 'about' && <AboutPage />}
       </main>
-      <Footer />
     </div>
   )
 }

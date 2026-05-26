@@ -12,7 +12,15 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "mcp__4bdec278-d748-48ed-9a9b-3ded07bb26ae__get_project",
+      "mcp__4bdec278-d748-48ed-9a9b-3ded07bb26ae__list_deployments"
     ]
   }
 }

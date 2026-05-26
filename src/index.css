@@ -3,27 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-white text-foreground font-sans antialiased;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-@layer components {
-  .container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-500 to-secondary bg-clip-text text-transparent;
-  }
-
-  .card {
-    @apply bg-white rounded-lg shadow-card border border-border/50;
+    @apply bg-white text-black font-sans;
+    font-size: 14px;
   }
 }
