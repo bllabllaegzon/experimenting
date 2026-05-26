@@ -1,56 +1,129 @@
-import type { Page } from '../App'
-import { posts } from '../data/posts'
+import { featuredPost, secondaryPosts } from '../data/posts'
+import type { Post } from '../data/posts'
 
 interface HomePageProps {
-  onNavigate: (page: Page) => void
+  onArticle: (post: Post) => void
 }
 
-export default function HomePage({ onNavigate }: HomePageProps) {
-  const featured = posts[0]
+export default function HomePage({ onArticle }: HomePageProps) {
+  const [col1, col2, col3, col4, col5] = secondaryPosts
 
   return (
-    <div className="px-16 pt-12">
-      {/* Featured post — matches mockup layout exactly */}
-      <div className="flex gap-8">
-        {/* Left: text */}
-        <div className="w-[335px] shrink-0">
-          <p className="text-[14px] font-normal leading-normal whitespace-pre-wrap">
-            {featured.excerpt}
+    <div className="pt-8">
+
+      {/* ── LEAD STORY ────────────────────────────────────────── */}
+      <article className="border-b-2 border-ink pb-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+
+          {/* Left col: headline + excerpt */}
+          <div className="md:col-span-2 flex flex-col justify-between h-full">
+            <div>
+              <p className="label mb-2">{featuredPost.category}</p>
+              <h2
+                className="font-display font-bold text-3xl leading-tight mb-4 cursor-pointer hover:text-accent transition-colors"
+                onClick={() => onArticle(featuredPost)}
+              >
+                {featuredPost.title}
+              </h2>
+              <p className="font-body italic text-muted text-base leading-relaxed mb-4">
+                {featuredPost.subtitle}
+              </p>
+            </div>
+            <p className="byline">{featuredPost.author} · {featuredPost.date}</p>
+          </div>
+
+          {/* Center col: featured image */}
+          <div className="md:col-span-3">
+            <img
+              src={featuredPost.image}
+              alt={featuredPost.title}
+              className="w-full object-cover cursor-pointer"
+              style={{ height: '340px' }}
+              onClick={() => onArticle(featuredPost)}
+            />
+            <p className="font-ui text-2xs text-muted mt-1 italic">{featuredPost.imageCaption}</p>
+          </div>
+        </div>
+
+        {/* Lead excerpt below */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <p className="md:col-span-2 font-body text-base leading-relaxed drop-cap">
+            {featuredPost.excerpt}
           </p>
-          <button
-            className="mt-6 text-[14px] underline hover:text-gray-600 transition-colors"
-            onClick={() => onNavigate('archive')}
-          >
-            Read more →
-          </button>
-        </div>
-
-        {/* Right: image placeholder */}
-        <div className="flex-1 bg-[#d9d9d9] h-[258px]" />
-      </div>
-
-      {/* Recent posts strip */}
-      <div className="mt-16 border-t border-[#d9d9d9] pt-8">
-        <h2 className="text-[14px] font-normal mb-6 uppercase tracking-widest text-gray-500">
-          Recent posts
-        </h2>
-        <div className="space-y-6">
-          {posts.slice(1).map((post) => (
-            <article
-              key={post.id}
-              className="flex gap-6 pb-6 border-b border-[#d9d9d9] cursor-pointer group"
-              onClick={() => onNavigate('archive')}
+          <div className="md:col-span-1 flex items-end">
+            <button
+              onClick={() => onArticle(featuredPost)}
+              className="font-ui text-xs uppercase tracking-widest text-accent border-b border-accent pb-0.5 hover:opacity-70 transition-opacity"
             >
-              <div className="w-24 h-16 bg-[#d9d9d9] shrink-0" />
-              <div>
-                <p className="text-[12px] text-gray-400 mb-1">{post.date}</p>
-                <h3 className="text-[14px] font-normal group-hover:underline">{post.title}</h3>
-                <p className="text-[13px] text-gray-500 mt-1 line-clamp-2">{post.excerpt.slice(0, 100)}…</p>
-              </div>
-            </article>
-          ))}
+              Continue reading →
+            </button>
+          </div>
         </div>
+      </article>
+
+      {/* ── THREE-COLUMN SECONDARY STORIES ───────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-b border-rule mb-8">
+        {[col1, col2, col3].map((post, i) => (
+          <article
+            key={post.id}
+            className={`pb-8 ${i < 2 ? 'md:border-r md:pr-6 md:mr-0' : ''} ${i > 0 ? 'md:pl-6' : ''} ${i === 1 ? 'md:pr-6' : ''}`}
+          >
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full object-cover mb-3 cursor-pointer"
+              style={{ height: '160px' }}
+              onClick={() => onArticle(post)}
+            />
+            <p className="label mb-1">{post.category}</p>
+            <h3
+              className="font-display font-bold text-lg leading-tight mb-2 cursor-pointer hover:text-accent transition-colors"
+              onClick={() => onArticle(post)}
+            >
+              {post.title}
+            </h3>
+            <p className="font-body text-sm leading-relaxed text-muted line-clamp-3 mb-3">
+              {post.excerpt}
+            </p>
+            <p className="byline">{post.author} · {post.date}</p>
+          </article>
+        ))}
       </div>
+
+      {/* ── DIVIDER WITH SECTION LABEL ───────────────────────── */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="flex-1 border-t border-rule" />
+        <span className="label shrink-0">Also this week</span>
+        <div className="flex-1 border-t border-rule" />
+      </div>
+
+      {/* ── TWO-COLUMN TERTIARY STORIES ──────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+        {[col4, col5].map((post, i) => (
+          <article
+            key={post.id}
+            className={`flex gap-4 pb-8 ${i === 0 ? 'md:border-r md:pr-8' : 'md:pl-8'}`}
+          >
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-28 h-20 object-cover shrink-0 cursor-pointer"
+              onClick={() => onArticle(post)}
+            />
+            <div>
+              <p className="label mb-1">{post.category}</p>
+              <h3
+                className="font-display font-bold text-base leading-tight mb-1 cursor-pointer hover:text-accent transition-colors"
+                onClick={() => onArticle(post)}
+              >
+                {post.title}
+              </h3>
+              <p className="byline">{post.author} · {post.readTime}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
     </div>
   )
 }

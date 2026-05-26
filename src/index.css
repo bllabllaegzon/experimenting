@@ -3,8 +3,43 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-white text-black font-sans;
-    font-size: 14px;
+    @apply bg-paper text-ink font-body antialiased;
+  }
+  ::selection {
+    @apply bg-ink text-paper;
+  }
+}
+
+@layer components {
+  /* Thin horizontal rule with newspaper feel */
+  .rule {
+    @apply border-t border-rule;
+  }
+  .rule-thick {
+    @apply border-t-2 border-ink;
+  }
+  .rule-accent {
+    @apply border-t-2 border-accent;
+  }
+
+  /* Label style: small-caps category tag */
+  .label {
+    @apply font-ui text-2xs uppercase tracking-[0.18em] text-muted;
+  }
+
+  /* Byline */
+  .byline {
+    @apply font-ui text-xs text-muted tracking-wide;
+  }
+
+  /* Drop-cap for lead article */
+  .drop-cap::first-letter {
+    @apply font-display font-bold float-left leading-none mr-1;
+    font-size: 4.2rem;
+    margin-top: 0.05em;
   }
 }

@@ -1,35 +1,61 @@
-import type { Page } from '../App'
 import { posts } from '../data/posts'
+import type { Post } from '../data/posts'
 
 interface ArchivePageProps {
-  onNavigate: (page: Page) => void
+  onArticle: (post: Post) => void
 }
 
-export default function ArchivePage({ onNavigate: _onNavigate }: ArchivePageProps) {
+export default function ArchivePage({ onArticle }: ArchivePageProps) {
   return (
-    <div className="px-16 pt-12">
-      <h2 className="text-[14px] font-normal uppercase tracking-widest text-gray-400 mb-8">
-        Archive
-      </h2>
+    <div className="pt-8">
+      <div className="flex items-baseline gap-4 mb-6 border-b-2 border-ink pb-3">
+        <h2 className="font-display font-bold text-2xl">Archive</h2>
+        <p className="label">{posts.length} articles</p>
+      </div>
+
       <div className="space-y-0">
         {posts.map((post, i) => (
           <article
             key={post.id}
-            className={`flex gap-8 py-6 ${i < posts.length - 1 ? 'border-b border-[#d9d9d9]' : ''}`}
+            className={`grid grid-cols-1 sm:grid-cols-4 gap-6 py-8 ${i < posts.length - 1 ? 'border-b border-rule' : ''}`}
           >
-            {/* Image placeholder */}
-            <div className="w-[180px] h-[120px] bg-[#d9d9d9] shrink-0" />
+            {/* Image */}
+            <div className="sm:col-span-1">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full object-cover cursor-pointer"
+                style={{ height: '120px' }}
+                onClick={() => onArticle(post)}
+              />
+            </div>
 
             {/* Text */}
-            <div className="flex-1">
-              <p className="text-[12px] text-gray-400 mb-2">{post.date}</p>
-              <h3 className="text-[18px] font-normal mb-3">{post.title}</h3>
-              <p className="text-[14px] text-gray-600 leading-relaxed">
-                {post.excerpt.slice(0, 200)}…
-              </p>
-              <p className="mt-3 text-[13px] underline cursor-pointer hover:text-gray-500 transition-colors inline-block">
-                Read more →
-              </p>
+            <div className="sm:col-span-3">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="label">{post.category}</span>
+                <span className="text-rule">·</span>
+                <span className="byline">{post.date}</span>
+                <span className="text-rule">·</span>
+                <span className="byline">{post.readTime}</span>
+              </div>
+              <h3
+                className="font-display font-bold text-xl leading-tight mb-2 cursor-pointer hover:text-accent transition-colors"
+                onClick={() => onArticle(post)}
+              >
+                {post.title}
+              </h3>
+              <p className="font-body italic text-muted text-sm mb-3">{post.subtitle}</p>
+              <p className="font-body text-sm leading-relaxed line-clamp-2 mb-3">{post.excerpt}</p>
+              <div className="flex items-center justify-between">
+                <p className="byline">By {post.author}</p>
+                <button
+                  onClick={() => onArticle(post)}
+                  className="font-ui text-xs uppercase tracking-widest text-accent border-b border-accent pb-0.5 hover:opacity-70 transition-opacity"
+                >
+                  Read →
+                </button>
+              </div>
             </div>
           </article>
         ))}
